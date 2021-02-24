@@ -1,17 +1,20 @@
 import React, {useState} from "react";
-
+import { useHistory } from "react-router-dom";
 
 
 const UploadPicture = () => {
+    const history = useHistory();
     const [image, setImage] = useState(null);
+    const [imageLoading, setImageLoading] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("image", image);
-        // note that you must NOT set the content type on ypur request
+        // note that you must NOT set the content type on your request
         // your client will set the content type correctly if you leave
         // it blank. if you include content-type, it won't get processed
         // correctly on the backend
+        setImageLoading(true);
         const res = await fetch('/api/images', {
             method: "POST",
             // headers: {
@@ -21,7 +24,8 @@ const UploadPicture = () => {
         });
         if (res.ok) {
             const data = await res.json();
-            console.log("success")
+            setImageLoading(false);
+            history.push("/images")
         }
         else {
             console.log("error")
@@ -41,6 +45,7 @@ const UploadPicture = () => {
               onChange={updateImage}
             />
             <button type="submit">Submit</button>
+            {(imageLoading)&& <p>Loading...</p>}
         </form>
     )
 }
