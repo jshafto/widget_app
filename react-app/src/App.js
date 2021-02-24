@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import UploadPicture from "./components/file_upload/UploadPicture"
+import ViewImages from "./components/file_upload/ViewImages"
 import { authenticate } from "./services/auth";
 
 function App() {
@@ -46,6 +47,9 @@ function App() {
         <ProtectedRoute path="/upload" exact={true} authenticated={authenticated}>
           <UploadPicture/>
         </ProtectedRoute>
+        <Route path="/images" exact={true}>
+          <ViewImages />
+        </Route>
         <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
           <User />
         </ProtectedRoute>

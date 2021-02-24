@@ -41,3 +41,9 @@ def upload_image():
     db.session.add(new_image)
     db.session.commit()
     return {"url": url}
+
+
+@image_routes.route("")
+def get_all_images():
+    images = Image.query.order_by(Image.id.desc()).all()
+    return {"images": [image.to_dict() for image in images]}

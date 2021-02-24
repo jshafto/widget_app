@@ -9,3 +9,10 @@ class Image(db.Model):
     url = db.Column(db.String, nullable=False)
 
     user = db.relationship("User", back_populates="images")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.user.id,
+            "url": self.url,
+        }
