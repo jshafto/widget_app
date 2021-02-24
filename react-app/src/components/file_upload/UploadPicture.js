@@ -8,11 +8,15 @@ const UploadPicture = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("image", image);
+        // note that you must NOT set the content type on ypur request
+        // your client will set the content type correctly if you leave
+        // it blank. if you include content-type, it won't get processed
+        // correctly on the backend
         const res = await fetch('/api/images', {
             method: "POST",
-            headers: {
-                "Content-Type": "multipart/form-data"
-            },
+            // headers: {
+            //     "Content-Type": "multipart/form-data"
+            // },
             body: formData,
         });
         if (res.ok) {
