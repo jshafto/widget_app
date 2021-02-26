@@ -23,7 +23,7 @@ const UploadPicture = () => {
             body: formData,
         });
         if (res.ok) {
-            const data = await res.json();
+            await res.json();
             setImageLoading(false);
             history.push("/images")
         }
