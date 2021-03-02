@@ -3,31 +3,29 @@ import { useHistory } from "react-router-dom";
 
 
 const UploadPicture = () => {
-    const history = useHistory();
+    const history = useHistory(); // so that we can redirect after the image upload is successful
     const [image, setImage] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("image", image);
-        // note that you must NOT set the content type on your request
-        // your client will set the content type correctly if you leave
-        // it blank. if you include content-type, it won't get processed
-        // correctly on the backend
-        setImageLoading(true);
+        
+        // aws uploads can be a bit slow—displaying
+        // some sort of loading message is a good idea
+        
+        setImageLoading(true); 
         const res = await fetch('/api/images', {
             method: "POST",
-            // headers: {
-            //     "Content-Type": "multipart/form-data"
-            // },
             body: formData,
         });
         if (res.ok) {
             await res.json();
             setImageLoading(false);
-            history.push("/images")
+            history.push("/images");
         }
         else {
+            setImageLoading(false);
             console.log("error")
         }
     }
@@ -50,5 +48,4 @@ const UploadPicture = () => {
     )
 }
 
-
-export default UploadPicture
+export default UploadPicture;
