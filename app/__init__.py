@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
+from flask_socketio import SocketIO
 
 from .models import db, User
 from .api.user_routes import user_routes
@@ -38,6 +39,7 @@ Migrate(app, db)
 
 # Application Security
 CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 # Since we are deploying with Docker and Flask,
