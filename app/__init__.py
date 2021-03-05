@@ -41,6 +41,9 @@ Migrate(app, db)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+if __name__ == '__main__':
+    socketio.run(app)
+
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.
