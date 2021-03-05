@@ -24,7 +24,7 @@ def allowed_file(filename):
 def get_unique_filename(filename):
     ext = filename.rsplit(".", 1)[1].lower()
     unique_filename = uuid.uuid4().hex
-    return "{unique_filename}.{ext}"
+    return f"{unique_filename}.{ext}"
 
 
 def upload_file_to_s3(file, acl="public-read"):
