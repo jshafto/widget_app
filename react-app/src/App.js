@@ -11,14 +11,14 @@ import ViewImages from "./components/file_upload/ViewImages"
 import { authenticate } from "./services/auth";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState(null)
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     (async() => {
-      const user = await authenticate();
-      if (!user.errors) {
-        setAuthenticated(true);
+      const data = await authenticate();
+      if (!data.errors) {
+        setUser(data);
       }
       setLoaded(true);
     })();
@@ -30,30 +30,30 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar setAuthenticated={setAuthenticated} />
+      <NavBar setUser={setUser} />
       <Switch>
         <Route path="/login" exact={true}>
           <LoginForm
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
+            user={user}
+            setUser={setUser}
           />
         </Route>
         <Route path="/sign-up" exact={true}>
-          <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+          <SignUpForm user={user} setUser={setUser} />
         </Route>
-        <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
+        <ProtectedRoute path="/users" exact={true} user={user}>
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path="/upload" exact={true} authenticated={authenticated}>
+        <ProtectedRoute path="/upload" exact={true} user={user}>
           <UploadPicture/>
         </ProtectedRoute>
         <Route path="/images" exact={true}>
           <ViewImages />
         </Route>
-        <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
+        <ProtectedRoute path="/users/:userId" exact={true} user={user}>
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+        <ProtectedRoute path="/" exact={true} user={user}>
           <h1>My Home Page</h1>
         </ProtectedRoute>
       </Switch>
