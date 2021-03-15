@@ -41,6 +41,14 @@ Migrate(app, db)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+
+@socketio.on("thing")
+def handleMessage(msg):
+    print(msg)
+    send(msg, broadcast=True)
+    return None
+
+
 if __name__ == '__main__':
     socketio.run(app)
 
