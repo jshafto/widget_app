@@ -8,6 +8,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import UploadPicture from "./components/file_upload/UploadPicture"
 import ViewImages from "./components/file_upload/ViewImages"
+import Chat from "./components/chat/Chat"
 import { authenticate } from "./services/auth";
 
 function App() {
@@ -52,6 +53,9 @@ function App() {
         </Route>
         <ProtectedRoute path="/users/:userId" exact={true} user={user}>
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute path="/chat" exact={true} user={user}>
+          <Chat />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} user={user}>
           <h1>My Home Page</h1>

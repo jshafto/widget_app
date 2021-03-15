@@ -7,7 +7,6 @@ const ViewImages = () => {
             const res = await fetch('/api/images');
             if (res.ok) {
                 const data = await res.json();
-                console.log(data)
                 setImages(data.images)
             } else {
                 console.log("error")

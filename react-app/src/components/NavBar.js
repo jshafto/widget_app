@@ -27,6 +27,11 @@ const NavBar = ({ setUser }) => {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/chat" exact={true} activeClassName="active">
+            Chat
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/upload" exact={true} activeClassName="active">
             Upload
           </NavLink>
